@@ -1,20 +1,28 @@
-package lab7;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package lab7;
+
+import java.util.ArrayList;
 
 /**
  *
- * @author Joudy
+ * @author NEXT STORE
  */
 public class Instructor extends User{
-
-    public Instructor(String username, int userid, String email, String password) {
-        super(username, userid, email, password);
-        super.setRole("Instructor");
+    private ArrayList<Integer> createdCourses;
+    
+    public Instructor(int userId, String username, String email, String password) {
+        super(userId, username, email, password, "instructor");
+        createdCourses = new ArrayList<>();
     }
     
-    
+    public Instructor(int userId, String username, String email, String passwordHash, boolean alreadyHashed) {
+       super(userId, username, email, passwordHash, "instructor", alreadyHashed);
+    }
+
+    public ArrayList<Integer> getCreatedCourses() {
+        return createdCourses;
+    }
 }
