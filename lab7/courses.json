@@ -1,0 +1,34 @@
+[
+  {
+    "courseId": 99999,
+    "instructorID": 919191,
+    "title": "programming 2",
+    "description": "object oriented programming",
+    "lessons": [
+      {
+        "lessonId": "1",
+        "title": "Intro",
+        "content": "Welcome"
+      },
+      {
+        "lessonId": "2",
+        "title": "OOP concepts",
+        "content": "abstraction"
+      }
+    ],
+    "students": [
+      {
+        "username": "joudyZ",
+        "userid": 9443,
+        "email": "jzeyadelsherbiny@gmail.com",
+        "password": "JoUdYyYy"
+      },
+      {
+        "username": "zeyad",
+        "userid": 9543,
+        "email": "zeyadelsherb@gmail.com",
+        "password": "zzzzz"
+      }
+    ]
+  }
+]
