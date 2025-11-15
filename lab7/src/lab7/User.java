@@ -22,7 +22,22 @@ public abstract class User {
         setPasswordHash(password);
         this.role = role;
     }
+    
+    public User(int userId, String username, String email, String passwordHash, String role, boolean alreadyHashed) {
+        this.userId = userId;
+        setUsername(username);
+        setEmail(email);
 
+        if (alreadyHashed) {
+            this.passwordHash = passwordHash;  
+        } 
+        else {
+            setPasswordHash(passwordHash);     
+        }
+
+        this.role = role;
+    }
+    
     public void setUsername(String username) {
         if (username == null || username.trim().isEmpty()) {
             throw new IllegalArgumentException("Username cannot be empty !");

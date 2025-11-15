@@ -17,6 +17,10 @@ public class Instructor extends User{
         super(userId, username, email, password, "instructor");
         createdCourses = new ArrayList<>();
     }
+    
+    public Instructor(int userId, String username, String email, String passwordHash, boolean alreadyHashed) {
+       super(userId, username, email, passwordHash, "instructor", alreadyHashed);
+    }
 
     public ArrayList<Integer> getCreatedCourses() {
         return createdCourses;

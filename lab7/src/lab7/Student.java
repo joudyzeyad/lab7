@@ -19,6 +19,10 @@ public class Student extends User{
         enrolledCourses = new ArrayList<>();
         progress = new ArrayList<>();
     }
+    
+    public Student(int userId, String username, String email, String passwordHash, boolean alreadyHashed) {
+        super(userId, username, email, passwordHash, "student", alreadyHashed);
+    }
 
     public ArrayList<Integer> getEnrolledCourses() {
         return enrolledCourses;

@@ -46,13 +46,14 @@ public class AuthenticationManager {
             return newUser;
         }
         catch (IOException ex) {
-            retrun null;
+            return null;
         }
+    }
         
         public static User login(String email, String password) {
             try {
                 ArrayList<User> users = JsonDatabaseManager.loadUsers();
-                String hashedInput = PasswordHasher.hash(password.trim());
+                String hashed = PasswordHasher.hash(password.trim());
                 
                 for (int i = 0 ; i < users.size() ; i++) {
                     User u = users.get(i);
@@ -62,6 +63,9 @@ public class AuthenticationManager {
                         return u;
                     }
                 }
+                return null;
+            }
+            catch(IOException ex) {
                 return null;
             }
         }

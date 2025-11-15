@@ -44,7 +44,7 @@ public class JsonDatabaseManager {
         if(obj.has("students")){
           JSONArray sArr = obj.getJSONArray("students");
           for(i=0;i<sArr.length();++i){
-             c.addStudent(jsonToStudent(sArr.getJSONObject(i)));
+             c.addStudent((Student) jsonToUser(sArr.getJSONObject(i)));
            }
         }
         if(obj.has("lessons")){
@@ -56,19 +56,28 @@ public class JsonDatabaseManager {
 
         return c;
     }
-    public static Student jsonToStudent(JSONObject obj){
-          String name = obj.getString("username");
-          int id = obj.getInt("userid");
-          String email = obj.getString("email");
-          String password = obj.getString("password");
-          return new Student(name,id,email,password);
+    private static User jsonToUser(JSONObject obj) {
+        int id = obj.getInt("userid");
+        String username = obj.getString("username");
+        String email = obj.getString("email");
+        String passwordHash = obj.getString("passwordHash");
+        String role = obj.getString("role");
+
+        if (role.equals("student"))
+            return new Student(id, username, email, passwordHash, true);
+        else
+            return new Instructor(id, username, email, passwordHash, true);
     }
-    public static Instructor jsonToInstructor(JSONObject obj){
-          String name = obj.getString("username");
-          int id = obj.getInt("userid");
-          String email = obj.getString("email");
-          String password = obj.getString("password");
-          return new Instructor(name,id,email,password);
+    private static JSONObject userToJson(User u) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("userid", u.getUserId());
+        obj.put("username", u.getUsername());
+        obj.put("email", u.getEmail());
+        obj.put("passwordHash", u.getPasswordHash());
+        obj.put("role", u.getRole());
+
+        return obj;
     }
     public static Lesson jsonToLesson(JSONObject obj){
          int id = obj.getInt("lessonId");
