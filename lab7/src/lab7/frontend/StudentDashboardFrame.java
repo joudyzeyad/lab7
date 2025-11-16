@@ -4,6 +4,10 @@
  */
 package lab7.frontend;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author farida helal
@@ -15,6 +19,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
      */
     public StudentDashboardFrame() {
         initComponents();
+
     }
 
     /**
@@ -26,21 +31,115 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        viewCourses = new javax.swing.JButton();
+        viewEnrolled = new javax.swing.JButton();
+        markLessons = new javax.swing.JButton();
+        Logout = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("STUDENT DASHBOARD:");
+
+        viewCourses.setText("View available courses");
+        viewCourses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCoursesActionPerformed(evt);
+            }
+        });
+
+        viewEnrolled.setText("View enrolled courses");
+        viewEnrolled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewEnrolledActionPerformed(evt);
+            }
+        });
+
+        markLessons.setText("mark lessons as complete");
+        markLessons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                markLessonsActionPerformed(evt);
+            }
+        });
+
+        Logout.setText("Logout");
+        Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Logout)
+                .addGap(30, 30, 30))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(viewCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewEnrolled, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(markLessons))))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(viewEnrolled, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(markLessons, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void viewCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCoursesActionPerformed
+        // TODO add your handling code here:
+        new ViewCoursesAvailable().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_viewCoursesActionPerformed
+
+    private void viewEnrolledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewEnrolledActionPerformed
+        // TODO add your handling code here:
+        new ViewEnrolledCourses().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_viewEnrolledActionPerformed
+
+    private void markLessonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markLessonsActionPerformed
+        // TODO add your handling code here:
+        new markLessons().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_markLessonsActionPerformed
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+        // TODO add your handling code here:
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to logout ?", "Logout", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                for (java.awt.Window window : java.awt.Window.getWindows()) {
+                    window.dispose();
+                }
+                new LoginFrame().setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_LogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +178,10 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Logout;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton markLessons;
+    private javax.swing.JButton viewCourses;
+    private javax.swing.JButton viewEnrolled;
     // End of variables declaration//GEN-END:variables
 }

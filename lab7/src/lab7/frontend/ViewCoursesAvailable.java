@@ -4,6 +4,12 @@
  */
 package lab7.frontend;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lab7.*;
+
 /**
  *
  * @author farida helal
@@ -12,9 +18,24 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
 
     /**
      * Creates new form ViewCoursesAvailable
+     *
+     * @throws java.io.IOException
      */
-    public ViewCoursesAvailable() {
+    public ViewCoursesAvailable() throws IOException {
         initComponents();
+        loadTable();
+    }
+
+    public void loadTable() throws IOException {
+        StudentManager sm = new StudentManager();
+        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+        m.setRowCount(0);
+        ArrayList<Course> x = sm.availableCourses();
+        for (int i = 0; i < x.size(); i++) {
+            Course c = x.get(i);
+            m.addRow(new Object[]{c.getTitle(),c.getCourseID(),c.getDescription()});
+
+        }
     }
 
     /**
@@ -26,19 +47,75 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        enroll = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Course Title", "CourseID", "Description"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        enroll.setText("Enroll");
+        enroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enrollActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(enroll))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(enroll)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void enrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollActionPerformed
+        // TODO add your handling code here:
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+// Get the selected row index
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            // No row selected
+            JOptionPane.showMessageDialog(this, "Please select a course to enroll into.");
+            return;
+        }
+        
+        int cID = (int) jTable1.getValueAt(selectedRow, 1);
+        StudentManager sm= new StudentManager();
+        sm.enroll(cID);
+    }//GEN-LAST:event_enrollActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton enroll;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

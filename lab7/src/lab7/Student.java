@@ -4,13 +4,15 @@
  */
 package lab7;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  *
  * @author NEXT STORE
  */
-public class Student extends User{
+public class Student extends User {
+
     private ArrayList<Integer> enrolledCourses;
     private ArrayList<CourseProgress> progress;
 
@@ -19,7 +21,7 @@ public class Student extends User{
         enrolledCourses = new ArrayList<>();
         progress = new ArrayList<>();
     }
-    
+
     public Student(int userId, String username, String email, String passwordHash, boolean alreadyHashed) {
         super(userId, username, email, passwordHash, "student", alreadyHashed);
     }
@@ -39,5 +41,30 @@ public class Student extends User{
     public void setProgress(ArrayList<CourseProgress> progress) {
         this.progress = progress;
     }
-    
+
+    public ArrayList<Course> availableCourses() throws IOException {
+        return JsonDatabaseManager.loadCourses();
+    }
+
+    public void enroll(int courseID) {
+        enrolledCourses.add(courseID);
+        setEnrolledCourses(enrolledCourses);
+    }
+
+    public ArrayList<Course> viewEnrolled() throws IOException {
+        ArrayList<Course> x = new ArrayList();
+        ArrayList<Course> c = new ArrayList();
+        c = JsonDatabaseManager.loadCourses();
+        for (int i = 0; i < enrolledCourses.size(); i++) {
+            for (int j = 0; j < c.size(); j++) {
+                if (enrolledCourses.get(i).equals(c.get(j).getCourseID())) {
+                    x.add(c.get(j));
+                    break;
+                }
+            }
+
+        }
+        return x;
+    }
+
 }
