@@ -1,34 +1,46 @@
 [
   {
+    "description": "object oriented programming",
+    "students": [
+      {
+        "role": "student",
+        "enrolledCourses": [],
+        "progress": [],
+        "userId": 9443,
+        "email": "jzeyadelsherbiny@gmail.com",
+        "passwordHash": "14fba8eccf286f250062baccfbe878f563aea6bd99952319b865bb84af881c94",
+        "username": "joudyZ"
+      },
+      {
+        "role": "student",
+        "enrolledCourses": [],
+        "progress": [],
+        "userId": 9543,
+        "email": "zeyadelsherb@gmail.com",
+        "passwordHash": "d07c00f0719d2df22ba46903dccbd454cc221e9fcec6556773fddb144a6e48e0",
+        "username": "zeyad"
+      }
+    ],
+    "title": "NEW TEST COURSE TITLE",
     "courseId": 99999,
     "instructorID": 919191,
-    "title": "programming 2",
-    "description": "object oriented programming",
     "lessons": [
       {
-        "lessonId": "1",
+        "lessonId": 1,
         "title": "Intro",
         "content": "Welcome"
       },
       {
-        "lessonId": "2",
+        "lessonId": 2,
         "title": "OOP concepts",
         "content": "abstraction"
       }
-    ],
-    "students": [
-      {
-        "username": "joudyZ",
-        "userId": 9443,
-        "email": "jzeyadelsherbiny@gmail.com",
-        "passwordHash": "JoUdYyYy"
-      },
-      {
-        "username": "zeyad",
-        "userId": 9543,
-        "email": "zeyadelsherb@gmail.com",
-        "passwordHash": "zzzzz"
-      }
     ]
+  },
+  {
+    "description": "This course has no students and no lessons yet.",
+    "title": "Empty Course",
+    "courseId": 500,
+    "instructorID": 2
   }
 ]

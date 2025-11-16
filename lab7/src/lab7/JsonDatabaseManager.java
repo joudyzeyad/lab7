@@ -161,6 +161,42 @@ public class JsonDatabaseManager {
 
         return obj;
     }
+     private static JSONObject courseToJson(Course c){
+          JSONObject obj = new JSONObject();
+          obj.put("courseId", c.getCourseID());
+          obj.put("instructorID", c.getInstructorID());
+          obj.put("title", c.getTitle());
+          obj.put("description", c.getDescription());
+          if(c.getLessons().size()!=0){
+             int i;
+             ArrayList<Lesson> temp = c.getLessons();
+             JSONArray temparr = new JSONArray();
+             for(i=0;i<temp.size();++i){
+               JSONObject lesson = new JSONObject();
+             lesson.put("lessonId",temp.get(i).getLessonId());
+             lesson.put("title", temp.get(i).getTitle());
+             lesson.put("content", temp.get(i).getContent());
+             ArrayList<String> res = temp.get(i).getResources();
+             if(res != null && !res.isEmpty())
+                 for(i=0;i<temp.get(i).getResources().size();++i)
+                     lesson.put("resources", temp.get(i).getResources());
+             temparr.put(lesson);
+          }
+             obj.put("lessons", temparr);
+          }
+          if(c.getStudents().size()!=0){
+             ArrayList<Student> s = c.getStudents();
+             JSONArray temparr = new JSONArray();
+             int i;
+             for(i=0;i<s.size();++i){
+                JSONObject student = userToJson(s.get(i));
+                temparr.put(student);
+             }
+             obj.put("students", temparr);
+          }
+              
+     return obj;
+     }
      public static void saveUser(ArrayList<User> u) throws IOException{
        JSONArray user = new JSONArray();
        int i;
@@ -169,5 +205,15 @@ public class JsonDatabaseManager {
           FileWriter f = new FileWriter("users.json");
          f.write(user.toString(2));
          f.close();
+     }
+     public static void saveCourse(ArrayList<Course> c) throws IOException{
+         JSONArray course = new JSONArray();
+         int i;
+         for(i=0;i<c.size();++i)
+             course.put(courseToJson(c.get(i)));
+         FileWriter f = new FileWriter("courses.json");
+         f.write(course.toString(2));
+         f.close();
+     
      }
 }
