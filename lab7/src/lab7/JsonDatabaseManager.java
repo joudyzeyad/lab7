@@ -161,6 +161,18 @@ public class JsonDatabaseManager {
 
         return obj;
     }
+     public static int generateNewUserId() throws IOException {
+         ArrayList<User> users = loadUsers();
+         
+         int maxId = 0;
+         
+         for (int i = 0 ; i < users.size() ; i++) {
+             if (users.get(i).getUserId() > maxId) {
+                 maxId = users.get(i).getUserId();
+             }
+         }
+         return maxId + 1;
+    }
      public static void saveUser(ArrayList<User> u) throws IOException{
        JSONArray user = new JSONArray();
        int i;

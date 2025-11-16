@@ -18,8 +18,7 @@ public class AuthenticationManager {
         return currentUser;
     }
     
-    public static User signup(String username, String email, String password, String role) {
-        try {
+    public static User signup(String username, String email, String password, String role) throws IOException {
             ArrayList<User> users = JsonDatabaseManager.loadUsers();
             
             for (int i = 0; i < users.size() ; i++) {
@@ -44,14 +43,9 @@ public class AuthenticationManager {
             JsonDatabaseManager.saveUser(users);
             
             return newUser;
-        }
-        catch (IOException ex) {
-            return null;
-        }
     }
         
-        public static User login(String email, String password) {
-            try {
+        public static User login(String email, String password) throws IOException {
                 ArrayList<User> users = JsonDatabaseManager.loadUsers();
                 String hashed = PasswordHasher.hash(password.trim());
                 
@@ -64,10 +58,6 @@ public class AuthenticationManager {
                     }
                 }
                 return null;
-            }
-            catch(IOException ex) {
-                return null;
-            }
         }
         
         public static void logout() {

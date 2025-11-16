@@ -4,6 +4,7 @@
  */
 package lab7.frontend;
 
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import lab7.AuthenticationManager;
@@ -157,22 +158,31 @@ public class LoginFrame extends javax.swing.JFrame {
             return;
         }
         
-        User user = AuthenticationManager.login(email, password);
-        
-        if (user == null) {
-            JOptionPane.showMessageDialog(this, "Invalid email or password !", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!email.contains("@") || !email.contains(".")) {
+            JOptionPane.showMessageDialog(this, "Invalid email format !", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        if (user.getRole().equals("student")) {
-            new StudentDashboardFrame().setVisible(true);
-        }
-        else {
-             new InstructorDashboardFrame().setVisible(true);
-        }
+        try {
+            User user = AuthenticationManager.login(email, password);
+        
+            if (user == null) {
+                JOptionPane.showMessageDialog(this, "Invalid email or password !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        
+            if (user.getRole().equals("student")) {
+                new StudentDashboardFrame().setVisible(true);
+            }
+            else {
+                new InstructorDashboardFrame().setVisible(true);
+            }
             
             this.dispose();
-        
+        }
+        catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "An error occured during log in. Please try again later", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed

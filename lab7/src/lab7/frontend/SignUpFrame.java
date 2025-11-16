@@ -4,6 +4,7 @@
  */
 package lab7.frontend;
 
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import lab7.AuthenticationManager;
 import lab7.User;
@@ -198,17 +199,25 @@ public class SignUpFrame extends javax.swing.JFrame {
             return;
         }
         
-        User user = AuthenticationManager.signup(username, email, password, role);
+        try {
+            User user = AuthenticationManager.signup(username, email, password, role);
         
-        if (user == null) {
-            JOptionPane.showMessageDialog(this, "Email already exists !", "Sign Up Failed", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (user == null) {
+                JOptionPane.showMessageDialog(this, "Email already exists !", "Sign Up Failed", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        
+            JOptionPane.showMessageDialog(this, "Account created successfully !", "Sign Up Successful", JOptionPane.INFORMATION_MESSAGE);
+        
+            new LoginFrame().setVisible(true);
+            this.dispose();
         }
-        
-        JOptionPane.showMessageDialog(this, "Account created successfully !", "Sign Up Successful", JOptionPane.INFORMATION_MESSAGE);
-        
-        new LoginFrame().setVisible(true);
-        this.dispose();
+        catch(IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Invalid Input", JOptionPane.WARNING_MESSAGE);
+        }
+        catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "An error occured while saving your account. Please try again later", "Internal Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     /**
