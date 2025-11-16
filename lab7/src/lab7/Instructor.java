@@ -4,7 +4,12 @@
  */
 package lab7;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 /**
  *
@@ -30,4 +35,58 @@ public class Instructor extends User{
         this.createdCourses = createdCourses;
     }
     
+    public static ArrayList<Student> viewEnrolledStudents()
+    {
+       ArrayList<User> users =new ArrayList<>();
+       ArrayList<Student>s=new ArrayList<>();
+        try {
+            users=JsonDatabaseManager.loadUsers();
+        } catch (IOException ex) {
+            Logger.getLogger(Instructor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       for(int i=0;i<users.size();i++)
+       {
+           if(users.get(i).getRole().equalsIgnoreCase("student"))
+               s.add((Student) users.get(i));
+               
+       }
+       return s;
+        
+    }
+    public void courseCreation(Course c) throws IOException
+    {
+        ArrayList<Course>courses=JsonDatabaseManager.loadCourses();
+        courses.add(c);
+        JsonDatabaseManager.saveCourse(courses);
+        
+    }
+    public void deleteCourse(Course c) throws IOException
+    {
+        ArrayList<Course> courses=JsonDatabaseManager.loadCourses();
+        courses.remove(c);
+         JsonDatabaseManager.saveCourse(courses);
+
+        
+    }
+    public void addLesson(Course c,Lesson l) throws IOException
+    {
+       ArrayList<Lesson> lessons=c.getLessons();
+       ArrayList<Course> course=new ArrayList<>();
+       lessons.add(l);
+       c.setLessons(lessons);
+       course.add(c);
+       JsonDatabaseManager.saveCourse(course);
+    }
+    
+
+
+public void deleteLesson(Course c,Lesson l) throws IOException
+{
+  ArrayList<Lesson>lessons = c.getLessons();
+   ArrayList<Course> course=new ArrayList<>();
+  lessons.remove(l);
+   c.setLessons(lessons);
+      course.add(c);
+       JsonDatabaseManager.saveCourse(course);
+}
 }
