@@ -6,9 +6,12 @@ package lab7.frontend;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import lab7.Course;
-import lab7.StudentManager;
+import lab7.*;
+
 
 /**
  *
@@ -103,6 +106,36 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
 
     private void lessonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonsActionPerformed
         // TODO add your handling code here:
+        MarkLessons l;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+// Get the selected row index
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            // No row selected
+            JOptionPane.showMessageDialog(this, "Please select a course to view and mark its lessons.");
+            return;
+        }
+        
+        int cID = (int) jTable1.getValueAt(selectedRow, 1);
+        StudentManager sm= new StudentManager();
+        ArrayList<Lesson> lesson =new ArrayList();
+        try {
+            lesson=sm.lessonList(cID);
+        } catch (IOException ex) {
+            Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        try {
+            l = new MarkLessons();
+            l.setVisible(true);
+            l.loadTable(lesson);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_lessonsActionPerformed
 
 
