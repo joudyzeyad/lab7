@@ -52,9 +52,9 @@ public class Lab7 {
     public static void prints(Student s){
     
         System.out.println(s.getUsername());
-        System.out.println(s.getUserid());
+        System.out.println(s.getUserId());
         System.out.println(s.getEmail());
-        System.out.println(s.getPassword());
+        System.out.println(s.getPasswordHash());
     
     }
     
