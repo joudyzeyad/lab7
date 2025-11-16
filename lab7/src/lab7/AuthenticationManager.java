@@ -41,7 +41,7 @@ public class AuthenticationManager {
             }
             
             users.add(newUser);
-            JsonDatabaseManager.saveUsers(users);
+            JsonDatabaseManager.saveUser(users);
             
             return newUser;
         }
@@ -58,7 +58,7 @@ public class AuthenticationManager {
                 for (int i = 0 ; i < users.size() ; i++) {
                     User u = users.get(i);
                     
-                    if (u.getEmail().equalsIgnoreCase(email.trim()) && u.getPasswordHash().equals(hashedInput)) {
+                    if (u.getEmail().equalsIgnoreCase(email.trim()) && u.getPasswordHash().equals(hashed)) {
                         currentUser = u;
                         return u;
                     }
