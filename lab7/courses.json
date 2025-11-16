@@ -19,15 +19,15 @@
     "students": [
       {
         "username": "joudyZ",
-        "userid": 9443,
+        "userId": 9443,
         "email": "jzeyadelsherbiny@gmail.com",
-        "password": "JoUdYyYy"
+        "passwordHash": "JoUdYyYy"
       },
       {
         "username": "zeyad",
-        "userid": 9543,
+        "userId": 9543,
         "email": "zeyadelsherb@gmail.com",
-        "password": "zzzzz"
+        "passwordHash": "zzzzz"
       }
     ]
   }
