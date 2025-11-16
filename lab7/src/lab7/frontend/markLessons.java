@@ -8,12 +8,12 @@ package lab7.frontend;
  *
  * @author farida helal
  */
-public class ViewCoursesAvailable extends javax.swing.JPanel {
+public class markLessons extends javax.swing.JPanel {
 
     /**
-     * Creates new form ViewCoursesAvailable
+     * Creates new form markLessons
      */
-    public ViewCoursesAvailable() {
+    public markLessons() {
         initComponents();
     }
 
