@@ -17,15 +17,15 @@
     ],
     "userId": 1,
     "email": "m@gmail.com",
-    "passwordHash": "2f5be88f76aeabe689e8bbd730395ba1509e29eef41faf3f0d1dc92611c3acbd",
-    "username": "mohamed"
+    "passwordHash": "857929dfae1bf2d4b5c931675ed53ab3c8ed3b3373e70734b5e9eea1f3fc07e3",
+    "username": "TEST_USERNAME"
   },
   {
     "role": "instructor",
     "createdCourses": [10],
     "userId": 2,
     "email": "salma@gmail.com",
-    "passwordHash": "22878e015d73220b9ea6f84740b25a0c894130f69d25689822beb500a74fc066",
+    "passwordHash": "9f80789817c535b2ad1eac18ec6d3082354a89d780adc11e9c37c66c3afd64af",
     "username": "salma"
   },
   {
@@ -46,7 +46,7 @@
     ],
     "userId": 9443,
     "email": "jzeyadelsherbiny@gmail.com",
-    "passwordHash": "cc0b81d61df81ba320108c8127fd93ed0cf94fe48e26b339d37696842480ae7e",
+    "passwordHash": "2e80f78f460cda414856af323bd19d4a0db9971c2028d77529ae00657a24f838",
     "username": "Joudy"
   }
 ]
