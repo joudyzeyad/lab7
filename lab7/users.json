@@ -1,0 +1,52 @@
+[
+  {
+    "role": "student",
+    "enrolledCourses": [
+      10,
+      20
+    ],
+    "progress": [
+      {
+        "progress": 2,
+        "courseId": 10
+      },
+      {
+        "progress": 5,
+        "courseId": 20
+      }
+    ],
+    "userId": 1,
+    "email": "m@gmail.com",
+    "passwordHash": "2f5be88f76aeabe689e8bbd730395ba1509e29eef41faf3f0d1dc92611c3acbd",
+    "username": "mohamed"
+  },
+  {
+    "role": "instructor",
+    "createdCourses": [10],
+    "userId": 2,
+    "email": "salma@gmail.com",
+    "passwordHash": "22878e015d73220b9ea6f84740b25a0c894130f69d25689822beb500a74fc066",
+    "username": "salma"
+  },
+  {
+    "role": "student",
+    "enrolledCourses": [
+      1,
+      3
+    ],
+    "progress": [
+      {
+        "progress": 2,
+        "courseId": 1
+      },
+      {
+        "progress": 0,
+        "courseId": 3
+      }
+    ],
+    "userId": 9443,
+    "email": "jzeyadelsherbiny@gmail.com",
+    "passwordHash": "cc0b81d61df81ba320108c8127fd93ed0cf94fe48e26b339d37696842480ae7e",
+    "username": "Joudy"
+  }
+]

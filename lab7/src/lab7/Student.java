@@ -31,4 +31,13 @@ public class Student extends User{
     public ArrayList<CourseProgress> getProgress() {
         return progress;
     }
+
+    public void setEnrolledCourses(ArrayList<Integer> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
+    }
+
+    public void setProgress(ArrayList<CourseProgress> progress) {
+        this.progress = progress;
+    }
+    
 }

@@ -26,7 +26,21 @@ public class Lab7 {
         for(i=0;i< a.size();++i){
             printc(a.get(i));
         }
-        
+        ArrayList<User> u = JsonDatabaseManager.loadUsers();
+        for(i=0;i< u.size();++i){
+            prints(u.get(i));
+        }
+        Student s = new Student(9443,"Joudy","jzeyadelsherbiny@gmail.com","962005J");
+        ArrayList<Integer> aa = new ArrayList<>();
+        aa.add(1);
+        aa.add(3);
+        ArrayList<CourseProgress> c = new ArrayList<>();
+        c.add(new CourseProgress(1,2));
+        c.add(new CourseProgress(3,0));
+        s.setEnrolledCourses(aa);
+        s.setProgress(c);
+        u.add(s);
+        JsonDatabaseManager.saveUser(u);
     }
     public static void printc(Course c){
           System.out.println(c.getCourseID());
@@ -49,12 +63,12 @@ public class Lab7 {
          System.out.println(l.getTitle());
          System.out.println(l.getContent());
     }
-    public static void prints(Student s){
+    public static void prints(User s){
     
         System.out.println(s.getUsername());
-        System.out.println(s.getUserid());
+        System.out.println(s.getUserId());
         System.out.println(s.getEmail());
-        System.out.println(s.getPassword());
+        System.out.println(s.getPasswordHash());
     
     }
     

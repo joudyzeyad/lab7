@@ -4,6 +4,7 @@ package lab7;
 import lab7.Instructor;
 import lab7.Course;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,6 +35,24 @@ public class JsonDatabaseManager {
            }
           return c; 
     } 
+    public static ArrayList<User> loadUsers() throws IOException{
+          ArrayList<User> u = new ArrayList<User>();
+          String lines = new String(Files.readAllBytes(Paths.get("users.json")));
+          JSONArray arr = new JSONArray(lines);
+          int i;
+          for(i=0;i<arr.length();++i){
+             JSONObject obj = arr.getJSONObject(i);
+             String role = obj.getString("role");
+            if(role.equalsIgnoreCase("student")){
+                Student s = jsonToStudent(obj);
+                u.add(s);}
+            else {
+                Instructor ins = jsonToInstructor(obj);
+                u.add(ins);
+            }
+          }
+          return u;
+    }
     public static Course jsonToCourse(JSONObject obj){
         int cID = obj.getInt("courseId");
         int instID = obj.getInt("instructorID");
@@ -44,7 +63,7 @@ public class JsonDatabaseManager {
         if(obj.has("students")){
           JSONArray sArr = obj.getJSONArray("students");
           for(i=0;i<sArr.length();++i){
-             c.addStudent((Student) jsonToUser(sArr.getJSONObject(i)));
+             c.addStudent((Student) jsonToStudent(sArr.getJSONObject(i)));
            }
         }
         if(obj.has("lessons")){
@@ -56,29 +75,49 @@ public class JsonDatabaseManager {
 
         return c;
     }
-    private static User jsonToUser(JSONObject obj) {
-        int id = obj.getInt("userid");
+    private static Student jsonToStudent(JSONObject obj) {
+        int id = obj.getInt("userId");
         String username = obj.getString("username");
         String email = obj.getString("email");
         String passwordHash = obj.getString("passwordHash");
-        String role = obj.getString("role");
-
-        if (role.equals("student"))
-            return new Student(id, username, email, passwordHash, true);
-        else
-            return new Instructor(id, username, email, passwordHash, true);
-    }
-    private static JSONObject userToJson(User u) {
-        JSONObject obj = new JSONObject();
-
-        obj.put("userid", u.getUserId());
-        obj.put("username", u.getUsername());
-        obj.put("email", u.getEmail());
-        obj.put("passwordHash", u.getPasswordHash());
-        obj.put("role", u.getRole());
-
-        return obj;
-    }
+        int i;
+        Student s = new Student(id,username,email,passwordHash);
+        if(obj.has("enrolledCourses")){
+        JSONArray ec = obj.getJSONArray("enrolledCourses");
+        ArrayList<Integer> enrolledCourses = new ArrayList<>();
+        for(i=0;i<ec.length();++i)
+            enrolledCourses.add(ec.getInt(i));
+         s.setEnrolledCourses(enrolledCourses);
+        }
+        if(obj.has("progress")){
+         JSONArray p = obj.getJSONArray("progress");
+        ArrayList<CourseProgress> cprogress = new ArrayList<>();
+        for(i=0;i<p.length();++i){
+            int cid = p.getJSONObject(i).getInt("courseId");
+            int progress = p.getJSONObject(i).getInt("progress");
+            CourseProgress temp = new CourseProgress(cid,progress);
+            cprogress.add(temp);
+        }
+        s.setProgress(cprogress);
+        }
+        return s;
+}
+    private static Instructor jsonToInstructor(JSONObject obj) {
+        int id = obj.getInt("userId");
+        String username = obj.getString("username");
+        String email = obj.getString("email");
+        String passwordHash = obj.getString("passwordHash");
+        int j;
+        Instructor i = new Instructor(id,username,email,passwordHash);
+        if(obj.has("createdCourses")){
+        JSONArray cc = obj.getJSONArray("createdCourses");
+        ArrayList<Integer> createdCourses = new ArrayList<>();
+        for(j=0;j<cc.length();++j)
+            createdCourses.add(cc.getInt(j));
+        i.setCreatedCourses(createdCourses);
+        }
+        return i;
+}
     public static Lesson jsonToLesson(JSONObject obj){
          int id = obj.getInt("lessonId");
          String title = obj.getString("title");
@@ -94,4 +133,41 @@ public class JsonDatabaseManager {
          return l;
     
     }
+     private static JSONObject userToJson(User u) {
+        JSONObject obj = new JSONObject();
+        obj.put("username", u.getUsername());
+        obj.put("userId", u.getUserId());
+        obj.put("email", u.getEmail());
+        obj.put("passwordHash", u.getPasswordHash());
+        obj.put("role", u.getRole());
+        if(u.getRole().equalsIgnoreCase("student")){
+          Student s = (Student) u;
+          obj.put("enrolledCourses",new JSONArray(s.getEnrolledCourses()));
+          int i;
+          ArrayList<CourseProgress> temp = s.getProgress();
+          JSONArray temparr = new JSONArray();
+          for(i=0;i<temp.size();++i){
+             JSONObject prog = new JSONObject();
+             prog.put("courseId",temp.get(i).getCourseID());
+             prog.put("progress",temp.get(i).getCompletedLessons());
+             temparr.put(prog);
+          }
+          obj.put("progress", temparr);
+        }
+        else{
+            Instructor ins = (Instructor) u;
+            obj.put("createdCourses",new JSONArray(ins.getCreatedCourses()));
+        }
+
+        return obj;
+    }
+     public static void saveUser(ArrayList<User> u) throws IOException{
+       JSONArray user = new JSONArray();
+       int i;
+       for(i=0;i<u.size();++i)
+           user.put(userToJson(u.get(i)));
+          FileWriter f = new FileWriter("users.json");
+         f.write(user.toString(2));
+         f.close();
+     }
 }

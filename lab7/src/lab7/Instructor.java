@@ -25,4 +25,9 @@ public class Instructor extends User{
     public ArrayList<Integer> getCreatedCourses() {
         return createdCourses;
     }
+
+    public void setCreatedCourses(ArrayList<Integer> createdCourses) {
+        this.createdCourses = createdCourses;
+    }
+    
 }
