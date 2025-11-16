@@ -17,7 +17,7 @@
     ],
     "userId": 1,
     "email": "m@gmail.com",
-    "passwordHash": "857929dfae1bf2d4b5c931675ed53ab3c8ed3b3373e70734b5e9eea1f3fc07e3",
+    "passwordHash": "4528bd8320d9d8df020241725490203c1a31564ade703329e043ab60ec1ada50",
     "username": "TEST_USERNAME"
   },
   {
@@ -25,7 +25,7 @@
     "createdCourses": [10],
     "userId": 2,
     "email": "salma@gmail.com",
-    "passwordHash": "9f80789817c535b2ad1eac18ec6d3082354a89d780adc11e9c37c66c3afd64af",
+    "passwordHash": "593dfcbcac8dcb274b36502f642f8a5f0a27fb1eb5b042ea4f09a19ec56aa0c1",
     "username": "salma"
   },
   {
@@ -46,7 +46,25 @@
     ],
     "userId": 9443,
     "email": "jzeyadelsherbiny@gmail.com",
-    "passwordHash": "2e80f78f460cda414856af323bd19d4a0db9971c2028d77529ae00657a24f838",
+    "passwordHash": "bcf2d21633a9809784c221be6c93954eace96c550f0204b2b3a972c913fe2951",
     "username": "Joudy"
+  },
+  {
+    "role": "student",
+    "enrolledCourses": [],
+    "progress": [],
+    "userId": 9444,
+    "email": "ranaadel@gmail.com",
+    "passwordHash": "49dc52e6bf2abe5ef6e2bb5b0f1ee2d765b922ae6cc8b95d39dc06c21c848f8c",
+    "username": "Rana "
+  },
+  {
+    "role": "student",
+    "enrolledCourses": [],
+    "progress": [],
+    "userId": 9445,
+    "email": "amr8856@gmail.com",
+    "passwordHash": "5b1feab3b3db889811317184f5275706f10d3f728ad357041bc91e6e55d0eb91",
+    "username": "Amr "
   }
 ]

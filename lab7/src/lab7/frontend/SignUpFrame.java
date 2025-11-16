@@ -191,7 +191,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         String role = roleBox.getSelectedItem().toString();
         
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fil out all fields", "Missing Fields", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please fill out all fields", "Missing Fields", JOptionPane.WARNING_MESSAGE);
             return;
         }
         

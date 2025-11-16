@@ -81,7 +81,7 @@ public class JsonDatabaseManager {
         String email = obj.getString("email");
         String passwordHash = obj.getString("passwordHash");
         int i;
-        Student s = new Student(id,username,email,passwordHash);
+        Student s = new Student(id,username,email,passwordHash,true);
         if(obj.has("enrolledCourses")){
         JSONArray ec = obj.getJSONArray("enrolledCourses");
         ArrayList<Integer> enrolledCourses = new ArrayList<>();
@@ -108,7 +108,7 @@ public class JsonDatabaseManager {
         String email = obj.getString("email");
         String passwordHash = obj.getString("passwordHash");
         int j;
-        Instructor i = new Instructor(id,username,email,passwordHash);
+        Instructor i = new Instructor(id,username,email,passwordHash,true);
         if(obj.has("createdCourses")){
         JSONArray cc = obj.getJSONArray("createdCourses");
         ArrayList<Integer> createdCourses = new ArrayList<>();
