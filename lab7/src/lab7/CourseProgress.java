@@ -29,8 +29,5 @@ public class CourseProgress {
         return completedLessons;
     }
 
-    public void setCompletedLessons(int completedLessons) {
-        this.completedLessons = completedLessons;
-    }
 }
 
