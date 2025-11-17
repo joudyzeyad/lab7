@@ -12,14 +12,29 @@ import java.util.ArrayList;
  * @author farida helal
  */
 public class StudentManager {
-    Student s;
+
+    private Student s;
     
-     public ArrayList<Course> availableCourses() throws IOException {
+    public StudentManager(Student s)
+    {
+        this.s=s;
+    
+    }
+
+    public ArrayList<Course> availableCourses() throws IOException {
         return JsonDatabaseManager.loadCourses();
     }
 
-    public void enroll(int courseID) {
-        s.getEnrolledCourses().add(courseID);   
+    public boolean enroll(int courseID) throws IOException {
+        ArrayList<Integer> temp = s.getEnrolledCourses();
+        int i;
+        for(i=0;i<temp.size();++i)
+            if(courseID == temp.get(i))
+                return false;
+        temp.add(courseID);
+        s.setEnrolledCourses(temp);
+        this.editStudentList(s);
+        return true;
     }
 
     public ArrayList<Course> viewEnrolled() throws IOException {
@@ -38,5 +53,46 @@ public class StudentManager {
         return x;
     }
 
-    
+    public ArrayList<Lesson> lessonList(int cID) throws IOException {
+        ArrayList<Course> x = viewEnrolled();
+        ArrayList<Lesson> l = new ArrayList();
+        for (int i = 0; i < x.size(); i++) {
+            if (x.get(i).getCourseID() == cID) {
+                l = x.get(i).getLessons();
+            }
+        }
+        return l;
+    }
+
+    public void lessonComplete(int lessonId, int courseId) throws IOException {
+
+        ArrayList<CourseProgress> progressList = s.getProgress();
+        CourseProgress cp = null;
+        for (CourseProgress p : progressList) {
+            if (p.getCourseID() == courseId) {
+                cp = p;
+                break;
+            }
+        }
+
+        if (cp == null) {
+            cp = new CourseProgress(courseId, 0);
+            progressList.add(cp);
+        }
+
+        int updated = cp.getCompletedLessons() + 1;
+        cp.setCompletedLessons(updated);
+
+    }
+    public void editStudentList(Student s) throws IOException{
+          ArrayList<User> temp = JsonDatabaseManager.loadUsers();
+          int i;
+          for(i=0;i<temp.size();++i){
+              if(temp.get(i).getUserId() == s.getUserId()){
+                  temp.add(i, s);
+                  break;
+              }
+          }
+          JsonDatabaseManager.saveUser(temp);
+    }
 }

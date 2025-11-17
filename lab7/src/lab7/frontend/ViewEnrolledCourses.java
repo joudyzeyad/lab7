@@ -6,26 +6,35 @@ package lab7.frontend;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.table.DefaultTableModel;
-import lab7.Course;
-import lab7.StudentManager;
+import lab7.*;
+
 
 /**
  *
  * @author farida helal
  */
 public class ViewEnrolledCourses extends javax.swing.JPanel {
-
+    private StudentManager sm;
+    private Student s;
     /**
      * Creates new form ViewEnrolledCourses
      * @throws java.io.IOException
      */
-    public ViewEnrolledCourses() throws IOException {
+    public ViewEnrolledCourses(StudentManager sm,Student s) throws IOException {
         initComponents();
+        this.sm=sm;
+        this.s=s;
         loadTable();
     }
      public void loadTable() throws IOException {
-        StudentManager sm = new StudentManager();
+        
         DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
         m.setRowCount(0);
         ArrayList<Course> x = sm.viewEnrolled();
@@ -35,17 +44,6 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
 
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +56,7 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lessons = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,15 +78,26 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Go Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lessons, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lessons, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,17 +106,54 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(lessons)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lessons)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void lessonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonsActionPerformed
         // TODO add your handling code here:
+        MarkLessons l;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+// Get the selected row index
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            // No row selected
+            JOptionPane.showMessageDialog(this, "Please select a course to view and mark its lessons.");
+            return;
+        }
+        
+        int cID = (int) jTable1.getValueAt(selectedRow, 1);
+       
+        ArrayList<Lesson> lesson =new ArrayList();
+        try {
+            lesson=sm.lessonList(cID);
+        } catch (IOException ex) {
+            Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        l = new MarkLessons(cID,sm,s);
+        l.setVisible(true);
+        l.loadTable(lesson);
+        this.setVisible(false);
+        
     }//GEN-LAST:event_lessonsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         JFrame frame = (JFrame) getWindowAncestor(this);
+          frame.setContentPane(new StudentDashboardFrame(s).getContentPane());
+          frame.revalidate();
+        frame.repaint(); // reopen dashboard without creating a new one
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton lessons;

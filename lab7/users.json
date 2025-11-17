@@ -66,5 +66,31 @@
     "email": "amr8856@gmail.com",
     "passwordHash": "5b1feab3b3db889811317184f5275706f10d3f728ad357041bc91e6e55d0eb91",
     "username": "Amr "
+  },
+  {
+    "role": "student",
+    "enrolledCourses": [99999],
+    "progress": [],
+    "userId": 9446,
+    "email": "f@gml.co",
+    "passwordHash": "8354e0dabc25b87156b357e42a0cfd087599b4300869c2e14a33790f9022d410",
+    "username": "farida"
+  },
+  {
+    "role": "student",
+    "enrolledCourses": [],
+    "progress": [],
+    "userId": 9446,
+    "email": "f@gml.co",
+    "passwordHash": "8354e0dabc25b87156b357e42a0cfd087599b4300869c2e14a33790f9022d410",
+    "username": "farida"
+  },
+  {
+    "role": "instructor",
+    "createdCourses": [],
+    "userId": 9447,
+    "email": "m@gml.co",
+    "passwordHash": "6087a23121ec3897993536cf0ad255a42f5ccef3689aab626b750360461d6b52",
+    "username": "mal"
   }
 ]
