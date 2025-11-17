@@ -7,7 +7,8 @@ package lab7.frontend;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import static javax.swing.SwingUtilities.getWindowAncestor;
-import lab7.Lesson;
+import lab7.JsonDatabaseManager;
+import lab7.*;
 
 /**
  *
@@ -148,21 +149,45 @@ public class EditLessonPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-       String title = titleField.getText();
-         int id = Integer.parseInt(idField.getText());
-         String content = contentField.getText();
-         String line=resourcesField.getText();
-         String[]arr=line.split(",");
-         ArrayList<String> resources=new ArrayList<>();
-         
-       for (int i=0;i<arr.length;i++)
-         {
-             resources.add(arr[i]);
-         }
-         Lesson lesson =new Lesson (id,title,content);
-         lesson.setResources(resources);
-         
-         
+    try {
+
+        int id = Integer.parseInt(idField.getText());
+        String title = titleField.getText();
+        String content = contentField.getText();
+        String line = resourcesField.getText();
+        String[] arr = line.split(",");
+        ArrayList<String> resources = new ArrayList<>();
+        for (String r : arr) {
+            resources.add(r.trim());
+        }
+        // Create new Lesson object
+        Lesson updatedLesson = new Lesson(id, title, content);
+        updatedLesson.setResources(resources);
+
+        //Load all courses
+        ArrayList<Course> courses = JsonDatabaseManager.loadCourses();
+
+        // Find the course that contains this lesson and replace it
+        for (Course course : courses) {
+            ArrayList<Lesson> lessons = course.getLessons();
+
+            for (int i = 0; i < lessons.size(); i++) {
+                if (lessons.get(i).getLessonId() == id) {     // match lesson by ID
+                    lessons.set(i, updatedLesson);            // replace old lesson
+                    break;
+                }
+            }
+        }
+
+        // Save changes back to JSON
+        JsonDatabaseManager.saveCourse(courses);
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Lesson updated successfully!");
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        javax.swing.JOptionPane.showMessageDialog(this, "Error saving lesson.");
+    }    
     }//GEN-LAST:event_saveButtonActionPerformed
 public void loadLesson(Lesson l)
 {

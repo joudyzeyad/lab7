@@ -21,9 +21,10 @@ import lab7.frontend.InstructorDashboardFrame;
  *
  * @author Malak Mokhtar
  */
-
 public class ManageLessons extends javax.swing.JPanel {
-private Course loadedCourse;
+
+    private Course loadedCourse;
+
     /**
      * Creates new form ManageLessons
      */
@@ -158,15 +159,15 @@ private Course loadedCourse;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(deleteButton)
                     .addComponent(editButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backButton)
-                .addGap(116, 116, 116))
+                .addGap(152, 152, 152))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -232,13 +233,11 @@ private Course loadedCourse;
                 return;
             }
 
-// Remove lesson by index
+             // Remove lesson by index
             courseToUpdate.getLessons().remove(selectedRow);
-
-// Save changes
+            // Save changes
             JsonDatabaseManager.saveCourse(courses); // replace with your actual save method
-
-// Reload table
+           // Reload table
             loadTable(courseToUpdate);
 
             javax.swing.JOptionPane.showMessageDialog(this, "Lesson deleted successfully!");

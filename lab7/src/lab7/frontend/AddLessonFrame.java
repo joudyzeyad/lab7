@@ -13,11 +13,11 @@ import javax.swing.JOptionPane;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 import lab7.*;
 
-
 /**
  *
  * @author Malak Mokhtar
  */
+
 public class AddLessonFrame extends javax.swing.JPanel {
     String title;
 
@@ -142,48 +142,51 @@ public class AddLessonFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-      JFrame frame = (JFrame) getWindowAncestor(this);
-       frame.setContentPane(new InstructorDashboardFrame().getContentPane());
-       frame.revalidate();
-       frame.repaint();
+        JFrame frame = (JFrame) getWindowAncestor(this);
+        frame.setContentPane(new InstructorDashboardFrame().getContentPane());
+        frame.revalidate();
+        frame.repaint();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
- if(idField.getText().isEmpty() || titleTextField.getText().isEmpty() || contentField.getText().isEmpty() || resorcesField.getText().isEmpty() )
-           JOptionPane.showMessageDialog(this,"Error, You have to fill out all the fields");
-        else{
-     try {
-         String title = titleTextField.getText();
-         int id = Integer.parseInt(idField.getText());
-         String content = contentField.getText();
-         String line=resorcesField.getText();
-         String[]arr=line.split(",");
-         ArrayList<String> resources=new ArrayList<>();
-         
-         for (int i=0;i<arr.length;i++)
-         {
-             resources.add(arr[i]);
-         }
-         Lesson lesson =new Lesson (id,title,content);
-         lesson.setResources(resources);
-         ArrayList<Course> c =JsonDatabaseManager.loadCourses();
-         for(int i=0;i<c.size();i++)
-         {
-             if(c.get(i).getTitle().equals(title))
-             {
-                 try {
-                     
-                     Instructor.addLesson(c.get(i), lesson);
-                     return;
-                 } catch (IOException ex) {
-                     Logger.getLogger(AddLessonFrame.class.getName()).log(Level.SEVERE, null, ex);   
-                 }
-             }
-         }
-     } catch (IOException ex) {
+        if (idField.getText().isEmpty() || titleTextField.getText().isEmpty() || contentField.getText().isEmpty() || resorcesField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Error, You have to fill out all the fields");
+        } else {
+            try {
+                String title = titleTextField.getText();
+                int id = Integer.parseInt(idField.getText());
+                String content = contentField.getText();
+                String line = resorcesField.getText();
+                String[] arr = line.split(",");
+                ArrayList<String> resources = new ArrayList<>();
+
+                for (int i = 0; i < arr.length; i++) {
+                    resources.add(arr[i]);
+                }
+                Lesson lesson = new Lesson(id, title, content);
+                lesson.setResources(resources);
+                ArrayList<Course> c = JsonDatabaseManager.loadCourses();
+                for (int i = 0; i < c.size(); i++) {
+                    if (c.get(i).getTitle().equals(title)) {
+                        try {
+                            Instructor.addLesson(c.get(i), lesson);
+                            // Save updated courses list to JSON
+                            JsonDatabaseManager.saveCourse(c);
+
+                            JOptionPane.showMessageDialog(this, "Lesson saved successfully!");
+                            return;
+
+                        } catch (IOException ex) {
+                            Logger.getLogger(AddLessonFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+
+            }
+    catch (IOException ex) {
          Logger.getLogger(AddLessonFrame.class.getName()).log(Level.SEVERE, null, ex);
-     }
-                 }
+    }
+}
                 
            
          
