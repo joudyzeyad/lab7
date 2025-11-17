@@ -19,6 +19,15 @@
         "email": "zeyadelsherb@gmail.com",
         "passwordHash": "d07c00f0719d2df22ba46903dccbd454cc221e9fcec6556773fddb144a6e48e0",
         "username": "zeyad"
+      },
+      {
+        "role": "student",
+        "enrolledCourses": [99999],
+        "progress": [],
+        "userId": 9446,
+        "email": "f@gml.co",
+        "passwordHash": "8354e0dabc25b87156b357e42a0cfd087599b4300869c2e14a33790f9022d410",
+        "username": "farida"
       }
     ],
     "title": "NEW TEST COURSE TITLE",
