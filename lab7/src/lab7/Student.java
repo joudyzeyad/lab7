@@ -11,6 +11,10 @@ import java.util.ArrayList;
  *
  * @author NEXT STORE
  */
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Student extends User {
 
     private ArrayList<Integer> enrolledCourses;
@@ -24,6 +28,8 @@ public class Student extends User {
 
     public Student(int userId, String username, String email, String passwordHash, boolean alreadyHashed) {
         super(userId, username, email, passwordHash, "student", alreadyHashed);
+        this.enrolledCourses = new ArrayList<>();
+        this.progress = new ArrayList<>();
     }
 
     public ArrayList<Integer> getEnrolledCourses() {
@@ -45,8 +51,7 @@ public class Student extends User {
     public ArrayList<Course> availableCourses() throws IOException {
         return JsonDatabaseManager.loadCourses();
     }
+}
 
-    
-    }
 
 
