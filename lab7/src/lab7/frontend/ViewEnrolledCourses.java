@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.table.DefaultTableModel;
 import lab7.*;
@@ -145,9 +146,9 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
          JFrame frame = (JFrame) getWindowAncestor(this);
-         frame.setContentPane(new StudentDashboardFrame(s).getContentPane());
-         frame.revalidate();
-         frame.repaint();
+          frame.setContentPane(new StudentDashboardFrame(s).getContentPane());
+          frame.revalidate();
+        frame.repaint(); // reopen dashboard without creating a new one
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

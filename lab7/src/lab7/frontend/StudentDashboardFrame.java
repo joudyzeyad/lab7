@@ -28,6 +28,10 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
         this.s = s;
         this.sm = new StudentManager(s);
         contentPanel.setLayout(new java.awt.BorderLayout());
+        contentPanel.setPreferredSize(new java.awt.Dimension(400, 300));
+        this.setLocationRelativeTo(null); 
+        this.setAlwaysOnTop(true);
+        this.setVisible(true);         
     }
 
     /**
@@ -170,7 +174,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_LogoutActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

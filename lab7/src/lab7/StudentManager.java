@@ -25,8 +25,16 @@ public class StudentManager {
         return JsonDatabaseManager.loadCourses();
     }
 
-    public void enroll(int courseID) {
-        s.getEnrolledCourses().add(courseID);
+    public boolean enroll(int courseID) throws IOException {
+        ArrayList<Integer> temp = s.getEnrolledCourses();
+        int i;
+        for(i=0;i<temp.size();++i)
+            if(courseID == temp.get(i))
+                return false;
+        temp.add(courseID);
+        s.setEnrolledCourses(temp);
+        this.editStudentList(s);
+        return true;
     }
 
     public ArrayList<Course> viewEnrolled() throws IOException {
@@ -76,5 +84,15 @@ public class StudentManager {
         cp.setCompletedLessons(updated);
 
     }
-
+    public void editStudentList(Student s) throws IOException{
+          ArrayList<User> temp = JsonDatabaseManager.loadUsers();
+          int i;
+          for(i=0;i<temp.size();++i){
+              if(temp.get(i).getUserId() == s.getUserId()){
+                  temp.add(i, s);
+                  break;
+              }
+          }
+          JsonDatabaseManager.saveUser(temp);
+    }
 }

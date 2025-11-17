@@ -6,8 +6,11 @@ package lab7.frontend;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.table.DefaultTableModel;
 import lab7.*;
@@ -113,30 +116,39 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollActionPerformed
-        // TODO add your handling code here:
-
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
-        // Get the selected row index
-        int selectedRow = jTable1.getSelectedRow();
-
-        if (selectedRow == -1) {
-            // No row selected
-            JOptionPane.showMessageDialog(this, "Please select a course to enroll into.");
-            return;
+        try {
+            // TODO add your handling code here:
+            
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            
+            // Get the selected row index
+            int selectedRow = jTable1.getSelectedRow();
+            
+            if (selectedRow == -1) {
+                // No row selected
+                JOptionPane.showMessageDialog(this, "Please select a course to enroll into.");
+                return;
+            }
+            
+            int cID = (int) jTable1.getValueAt(selectedRow, 1);
+            if(sm.enroll(cID) == false)
+                JOptionPane.showMessageDialog(this,"You have already enrolled in this course, cant enroll again");
+            else{
+                JOptionPane.showMessageDialog(this,"You have enrolled successfully");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ViewCoursesAvailable.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        int cID = (int) jTable1.getValueAt(selectedRow, 1);
-        
-        sm.enroll(cID);
     }//GEN-LAST:event_enrollActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         JFrame frame = (JFrame) getWindowAncestor(this);
-         frame.setContentPane(new StudentDashboardFrame(s).getContentPane());
-         frame.revalidate();
-         frame.repaint();
+          JFrame frame = (JFrame) getWindowAncestor(this);
+          frame.setContentPane(new StudentDashboardFrame(s).getContentPane());
+        frame.revalidate();
+        frame.repaint(); // reopen dashboard without creating a new one
+
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

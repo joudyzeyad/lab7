@@ -69,6 +69,15 @@
   },
   {
     "role": "student",
+    "enrolledCourses": [99999],
+    "progress": [],
+    "userId": 9446,
+    "email": "f@gml.co",
+    "passwordHash": "8354e0dabc25b87156b357e42a0cfd087599b4300869c2e14a33790f9022d410",
+    "username": "farida"
+  },
+  {
+    "role": "student",
     "enrolledCourses": [],
     "progress": [],
     "userId": 9446,
