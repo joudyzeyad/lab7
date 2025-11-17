@@ -31,10 +31,9 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
     }
 
     public void loadTable() throws IOException {
-        StudentManager sm = new StudentManager();
         DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
         m.setRowCount(0);
-        ArrayList<Course> x = sm.availableCourses();
+        ArrayList<Course> x = JsonDatabaseManager.loadCourses();
         for (int i = 0; i < x.size(); i++) {
             Course c = x.get(i);
             m.addRow(new Object[]{c.getTitle(), c.getCourseID(), c.getInstructorID(), c.getDescription(), c.getLessons()});
@@ -180,7 +179,15 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
     }//GEN-LAST:event_enrollActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
+
+        AddCoursePanel m = new AddCoursePanel();
+        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+        if (window instanceof javax.swing.JFrame frame) {
+            frame.setContentPane(m);
+            frame.revalidate();
+            frame.repaint();
+        }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
@@ -193,8 +200,8 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
             return;
         } else {
             try {
-                StudentManager sm = new StudentManager();
-                ArrayList<Course> courses = sm.availableCourses();
+               
+                ArrayList<Course> courses = JsonDatabaseManager.loadCourses();
                 EditCoursePanel editPanel = new EditCoursePanel();
                 editPanel.loadCourse(courses.get(selectedRow));
                 java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
@@ -231,10 +238,9 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
 
         if (confirm == JOptionPane.YES_OPTION) {
             // Remove the row from the table
-            StudentManager sm = new StudentManager();
             ArrayList<Course> courses;
             try {
-                courses = sm.availableCourses();
+                courses = JsonDatabaseManager.loadCourses();
                 Course c = courses.get(selectedRow);
                 model.removeRow(selectedRow);
                 Instructor.deleteCourse(c);
