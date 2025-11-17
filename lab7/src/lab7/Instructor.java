@@ -53,22 +53,53 @@ public class Instructor extends User{
        return s;
         
     }
-    public void courseCreation(Course c) throws IOException
-    {
-        ArrayList<Course>courses=JsonDatabaseManager.loadCourses();
-        courses.add(c);
-        JsonDatabaseManager.saveCourse(courses);
-        
+    public static void courseCreation(Course c) throws IOException {
+
+    //  Check duplicate BEFORE loading into list
+    if (JsonDatabaseManager.courseIdExists(c.getCourseID())) {
+        throw new IllegalArgumentException(
+            "Course ID " + c.getCourseID() + " already exists."
+        );
     }
-    public void deleteCourse(Course c) throws IOException
+    // Load existing courses
+    ArrayList<Course> courses = JsonDatabaseManager.loadCourses();
+
+    if (courses == null) {
+        courses = new ArrayList<>();
+    }
+
+    // Safe to add (because ID is unique)
+    courses.add(c);
+
+    // Save updated list
+    JsonDatabaseManager.saveCourse(courses);
+}
+
+
+    public static void deleteCourse(Course c) throws IOException
     {
         ArrayList<Course> courses=JsonDatabaseManager.loadCourses();
         courses.remove(c);
          JsonDatabaseManager.saveCourse(courses);
-
-        
+   
     }
-    public void addLesson(Course c,Lesson l) throws IOException
+    public static void updateCourses(Course c) throws IOException
+    {
+      ArrayList<Course> courses=JsonDatabaseManager.loadCourses();
+
+        for(int i=0;i<courses.size();i++){
+            if(c.getCourseID()==courses.get(i).getCourseID())
+            {
+            int index =i;
+            courses.set(index, c);
+               JsonDatabaseManager.saveCourse(courses);
+               return;
+            }
+            
+        }
+
+    }
+    public static void addLesson(Course c,Lesson l) throws IOException
     {
        ArrayList<Lesson> lessons=c.getLessons();
        ArrayList<Course> course=new ArrayList<>();

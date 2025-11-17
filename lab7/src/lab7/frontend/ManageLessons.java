@@ -4,12 +4,26 @@
  */
 package lab7.frontend;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.SwingUtilities.getWindowAncestor;
+import javax.swing.table.DefaultTableModel;
+import lab7.*;
+import lab7.frontend.AddLessonFrame;
+import lab7.frontend.EditLessonPanel;
+import lab7.frontend.InstructorDashboardFrame;
+
 /**
  *
  * @author Malak Mokhtar
  */
-public class ManageLessons extends javax.swing.JPanel {
 
+public class ManageLessons extends javax.swing.JPanel {
+private Course loadedCourse;
     /**
      * Creates new form ManageLessons
      */
@@ -26,19 +40,292 @@ public class ManageLessons extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        addButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        courseField = new javax.swing.JTextField();
+        deleteButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Lesson ID", "Title", "Content", "Resources"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Lessons");
+
+        addButton.setText("Add Lesson");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        backButton.setText("Go Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Enter Course Title:");
+
+        courseField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseFieldActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setText("Delete Lesson");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        editButton.setText("Edit Lesson");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Search Button");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(addButton)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(72, 72, 72)
+                                                .addComponent(backButton)
+                                                .addGap(83, 83, 83))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(editButton)
+                                                .addGap(72, 72, 72)))
+                                        .addComponent(deleteButton))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(courseField, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(searchButton))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(courseField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addButton)
+                    .addComponent(deleteButton)
+                    .addComponent(editButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backButton)
+                .addGap(116, 116, 116))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        JFrame frame = (JFrame) getWindowAncestor(this);
+        frame.setContentPane(new InstructorDashboardFrame().getContentPane());
+        frame.revalidate();
+        frame.repaint();
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void courseFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_courseFieldActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        String title = courseField.getText();
+        AddLessonFrame m = new AddLessonFrame(title);
+        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+        if (window instanceof javax.swing.JFrame frame) {
+            frame.setContentPane(m);
+            frame.revalidate();
+            frame.repaint();
+        }
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        try {
+            int selectedRow = jTable1.getSelectedRow();
+            if (selectedRow == -1) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Please select a lesson to delete.");
+                return;
+            }
+
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this lesson?",
+                    "Confirm Delete",
+                    javax.swing.JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm != javax.swing.JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            String courseTitle = courseField.getText().trim();
+            ArrayList<Course> courses;
+
+            courses = JsonDatabaseManager.loadCourses();
+
+            Course courseToUpdate = null;
+
+            for (Course c : courses) {
+                if (c.getTitle().equalsIgnoreCase(courseTitle)) {
+                    courseToUpdate = c;
+                    break;
+                }
+            }
+
+            if (courseToUpdate == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Course not found!");
+                return;
+            }
+
+// Remove lesson by index
+            courseToUpdate.getLessons().remove(selectedRow);
+
+// Save changes
+            JsonDatabaseManager.saveCourse(courses); // replace with your actual save method
+
+// Reload table
+            loadTable(courseToUpdate);
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Lesson deleted successfully!");
+        } catch (IOException ex) {
+            Logger.getLogger(ManageLessons.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void loadTable(Course course) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // clear previous data
+
+        for (Lesson lesson : course.getLessons()) {
+            Object[] row = new Object[]{
+                lesson.getLessonId(),
+                lesson.getTitle(),
+                lesson.getContent(),
+                String.join(", ", lesson.getResources())
+            };
+            model.addRow(row);
+        }
+
+        model.setColumnIdentifiers(new String[]{"ID", "Title", "Content", "Resources"});
+
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a Lesson");
+            return;
+        }
+
+        if (loadedCourse == null) {
+            JOptionPane.showMessageDialog(this, "No course loaded!");
+            return;
+        }
+
+        // Get the lesson corresponding to that row
+        Lesson selectedLesson = loadedCourse.getLessons().get(selectedRow);
+
+        // Create edit panel and pass lesson
+        EditLessonPanel editPanel = new EditLessonPanel(selectedLesson);
+
+        // Switch panel
+        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+        if (window instanceof javax.swing.JFrame frame) {
+            frame.setContentPane(editPanel);
+            frame.revalidate();
+            frame.repaint();
+
+        }
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        String courseTitle = courseField.getText().trim();
+
+        ArrayList<Course> courses;
+        try {
+            courses = JsonDatabaseManager.loadCourses();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error loading courses.");
+            return;
+        }
+
+        for (Course c : courses) {
+            if (c.getTitle().equalsIgnoreCase(courseTitle)) {
+                loadedCourse = c;      // store it
+                loadTable(c);
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Course not found!");
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton backButton;
+    private javax.swing.JTextField courseField;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 }

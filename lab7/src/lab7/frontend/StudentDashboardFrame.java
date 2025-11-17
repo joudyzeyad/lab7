@@ -34,7 +34,6 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         viewCourses = new javax.swing.JButton();
         viewEnrolled = new javax.swing.JButton();
-        markLessons = new javax.swing.JButton();
         Logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,13 +52,6 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
         viewEnrolled.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewEnrolledActionPerformed(evt);
-            }
-        });
-
-        markLessons.setText("mark lessons as complete");
-        markLessons.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                markLessonsActionPerformed(evt);
             }
         });
 
@@ -87,8 +79,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(viewCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(viewEnrolled, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(markLessons))))
+                            .addComponent(viewEnrolled, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(189, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,9 +91,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
                 .addComponent(viewCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(viewEnrolled, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(markLessons, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addGap(107, 107, 107)
                 .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
@@ -111,22 +100,24 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCoursesActionPerformed
-        // TODO add your handling code here:
-        new ViewCoursesAvailable().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new ViewCoursesAvailable().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(StudentDashboardFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_viewCoursesActionPerformed
 
     private void viewEnrolledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewEnrolledActionPerformed
-        // TODO add your handling code here:
-        new ViewEnrolledCourses().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new ViewEnrolledCourses().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(StudentDashboardFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_viewEnrolledActionPerformed
-
-    private void markLessonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markLessonsActionPerformed
-        // TODO add your handling code here:
-        new markLessons().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_markLessonsActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         // TODO add your handling code here:
@@ -180,7 +171,6 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Logout;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton markLessons;
     private javax.swing.JButton viewCourses;
     private javax.swing.JButton viewEnrolled;
     // End of variables declaration//GEN-END:variables
