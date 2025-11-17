@@ -25,10 +25,11 @@ public class MarkLessons extends javax.swing.JPanel {
              * Creates new form MarkLessons
              */
 
-    public MarkLessons(int courseID,StudentManager sm,Student s) {
+    public MarkLessons(int courseID,StudentManager sm,Student s) throws IOException {
         initComponents();
         this.sm=sm;
         this.courseID = courseID;
+        loadTable(sm.lessonList(courseID));
     }
 
     public void loadTable(ArrayList<Lesson> l) {
@@ -64,7 +65,15 @@ public class MarkLessons extends javax.swing.JPanel {
             new String [] {
                 "Title ", "Lesson ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Mark as complete");

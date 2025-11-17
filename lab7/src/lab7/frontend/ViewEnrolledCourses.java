@@ -115,7 +115,6 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
 
     private void lessonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonsActionPerformed
         // TODO add your handling code here:
-        MarkLessons l;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
 // Get the selected row index
@@ -131,15 +130,24 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
        
         ArrayList<Lesson> lesson =new ArrayList();
         try {
-            lesson=sm.lessonList(cID);
-        } catch (IOException ex) {
-            Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
-        }
- 
-        l = new MarkLessons(cID,sm,s);
+            try {
+                lesson=sm.lessonList(cID);
+            } catch (IOException ex) {
+                Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            MarkLessons l = new MarkLessons(cID,sm,s);
         l.setVisible(true);
         l.loadTable(lesson);
         this.setVisible(false);
+        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+                if (window instanceof javax.swing.JFrame frame) {
+                    frame.setContentPane(l);
+                    frame.revalidate();
+                    frame.repaint();
+        }}catch (IOException ex) {
+            Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
     }//GEN-LAST:event_lessonsActionPerformed
 
