@@ -17,11 +17,13 @@ public class Lesson {
     private String title;
     private String content;
     private ArrayList<String> resources;
+    private boolean isComplete;
 
     public Lesson(int lessonId, String title, String content) {
         this.lessonId = lessonId;
         this.title = title;
         this.content = content;
+        this.isComplete= false;
     }
     public void addResource(String r){
           resources.add(r);
@@ -58,5 +60,14 @@ public class Lesson {
     public void setResources(ArrayList<String> resources) {
         this.resources = resources;
     }
+
+    public boolean isIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(boolean isComplete) {
+        this.isComplete = isComplete;
+    }
+    
     
 }
