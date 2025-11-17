@@ -10,5 +10,17 @@
     "title": "Empty Course",
     "courseId": 500,
     "instructorID": 2
+  },
+  {
+    "description": "json files",
+    "title": "Database",
+    "courseId": 9811,
+    "instructorID": 9619
+  },
+  {
+    "description": "Stability",
+    "title": "signals",
+    "courseId": 9822,
+    "instructorID": 1234
   }
 ]

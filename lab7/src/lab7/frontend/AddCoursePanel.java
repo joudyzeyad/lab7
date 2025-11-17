@@ -195,6 +195,7 @@ public class AddCoursePanel extends javax.swing.JPanel {
              } catch (IOException ex) {
                  Logger.getLogger(AddCoursePanel.class.getName()).log(Level.SEVERE, null, ex);
              }
+                       JOptionPane.showMessageDialog(this,"Course added successfully");
          }
     }//GEN-LAST:event_saveButtonActionPerformed
 

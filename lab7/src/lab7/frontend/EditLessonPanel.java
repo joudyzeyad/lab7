@@ -163,7 +163,6 @@ public class EditLessonPanel extends javax.swing.JPanel {
         // Create new Lesson object
         Lesson updatedLesson = new Lesson(id, title, content);
         updatedLesson.setResources(resources);
-
         //Load all courses
         ArrayList<Course> courses = JsonDatabaseManager.loadCourses();
 
@@ -172,13 +171,12 @@ public class EditLessonPanel extends javax.swing.JPanel {
             ArrayList<Lesson> lessons = course.getLessons();
 
             for (int i = 0; i < lessons.size(); i++) {
-                if (lessons.get(i).getLessonId() == id) {     // match lesson by ID
-                    lessons.set(i, updatedLesson);            // replace old lesson
+                if (lessons.get(i).getLessonId() == id) {   // match lesson by ID
+                    lessons.set(i, updatedLesson);     // replace old lesson
                     break;
                 }
             }
         }
-
         // Save changes back to JSON
         JsonDatabaseManager.saveCourse(courses);
 
