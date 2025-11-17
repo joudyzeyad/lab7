@@ -34,6 +34,7 @@ public class StudentManager {
         temp.add(courseID);
         s.setEnrolledCourses(temp);
         this.editStudentList(s);
+        this.editCourseList(courseID, s);
         return true;
     }
 
@@ -94,5 +95,15 @@ public class StudentManager {
               }
           }
           JsonDatabaseManager.saveUser(temp);
+    }
+    public void editCourseList(int id,Student s) throws IOException{
+        ArrayList<Course> temp = JsonDatabaseManager.loadCourses();
+        int i;
+          for(i=0;i<temp.size();++i){
+               if(temp.get(i).getCourseID() == id){
+                  temp.get(i).addStudent(s);
+               }
+            } 
+        JsonDatabaseManager.saveCourse(temp);
     }
 }
