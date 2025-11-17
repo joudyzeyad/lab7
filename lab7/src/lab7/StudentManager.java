@@ -12,14 +12,16 @@ import java.util.ArrayList;
  * @author farida helal
  */
 public class StudentManager {
+
     Student s;
-    
-     public ArrayList<Course> availableCourses() throws IOException {
+    Lesson l;
+
+    public ArrayList<Course> availableCourses() throws IOException {
         return JsonDatabaseManager.loadCourses();
     }
 
     public void enroll(int courseID) {
-        s.getEnrolledCourses().add(courseID);   
+        s.getEnrolledCourses().add(courseID);
     }
 
     public ArrayList<Course> viewEnrolled() throws IOException {
@@ -38,5 +40,36 @@ public class StudentManager {
         return x;
     }
 
-    
+    public ArrayList<Lesson> lessonList(int cID) throws IOException {
+        ArrayList<Course> x = s.viewEnrolled();
+        ArrayList<Lesson> l = new ArrayList();
+        for (int i = 0; i < x.size(); i++) {
+            if (x.get(i).getCourseID() == cID) {
+                l = x.get(i).getLessons();
+            }
+        }
+        return l;
+    }
+
+    public void lessonComplete(int lessonId, int courseId) throws IOException {
+
+        ArrayList<CourseProgress> progressList = s.getProgress();
+        CourseProgress cp = null;
+        for (CourseProgress p : progressList) {
+            if (p.getCourseID() == courseId) {
+                cp = p;
+                break;
+            }
+        }
+
+        if (cp == null) {
+            cp = new CourseProgress(courseId, 0);
+            progressList.add(cp);
+        }
+
+        int updated = cp.getCompletedLessons() + 1;
+        cp.setCompletedLessons(updated);
+
+    }
+
 }

@@ -17,6 +17,10 @@ public class CourseProgress {
         this.completedLessons = completedLessons;
     }
 
+    public void setCompletedLessons(int completedLessons) {
+        this.completedLessons = completedLessons;
+    }
+
     public int getCourseID() {
         return courseID;
     }

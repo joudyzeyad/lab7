@@ -39,7 +39,6 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="viewCourses" min="-2" pref="166" max="-2" attributes="0"/>
                           <Component id="viewEnrolled" alignment="1" min="-2" pref="166" max="-2" attributes="0"/>
-                          <Component id="markLessons" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -56,9 +55,7 @@
               <Component id="viewCourses" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="viewEnrolled" pref="37" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="markLessons" min="-2" pref="37" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
               <Component id="Logout" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
@@ -88,14 +85,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewEnrolledActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="markLessons">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="mark lessons as complete"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="markLessonsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Logout">

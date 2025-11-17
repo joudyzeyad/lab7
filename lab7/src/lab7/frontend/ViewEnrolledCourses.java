@@ -38,17 +38,6 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
 
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,14 +116,10 @@ public class ViewEnrolledCourses extends javax.swing.JPanel {
             Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
         }
  
-        try {
-            l = new MarkLessons();
-            l.setVisible(true);
-            l.loadTable(lesson);
-            this.setVisible(false);
-        } catch (IOException ex) {
-            Logger.getLogger(ViewEnrolledCourses.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        l = new MarkLessons(cID);
+        l.setVisible(true);
+        l.loadTable(lesson);
+        this.setVisible(false);
         
     }//GEN-LAST:event_lessonsActionPerformed
 
