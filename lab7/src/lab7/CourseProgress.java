@@ -11,7 +11,7 @@ package lab7;
 public class CourseProgress {
     private int courseID;
     private int completedLessons;
-    
+
     public CourseProgress(int courseID, int completedLessons) {
         this.courseID = courseID;
         this.completedLessons = completedLessons;
@@ -28,4 +28,6 @@ public class CourseProgress {
     public int getCompletedLessons() {
         return completedLessons;
     }
+
 }
+

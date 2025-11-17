@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.table.DefaultTableModel;
 import lab7.*;
@@ -20,30 +19,24 @@ import lab7.*;
  * @author farida helal
  */
 public class ViewCoursesAvailable extends javax.swing.JPanel {
-    private StudentManager sm;
-    private Student s;
+
     /**
      * Creates new form ViewCoursesAvailable
      *
-     * @param sm
-     * @param s
      * @throws java.io.IOException
      */
-    public ViewCoursesAvailable(StudentManager sm,Student s) throws IOException {
+    public ViewCoursesAvailable() throws IOException {
         initComponents();
-        this.sm=sm;
-        this.s=s;
         loadTable();
     }
 
     public void loadTable() throws IOException {
-        
         DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
         m.setRowCount(0);
-        ArrayList<Course> x = sm.availableCourses();
+        ArrayList<Course> x = JsonDatabaseManager.loadCourses();
         for (int i = 0; i < x.size(); i++) {
             Course c = x.get(i);
-            m.addRow(new Object[]{c.getTitle(),c.getCourseID(),c.getDescription()});
+            m.addRow(new Object[]{c.getTitle(), c.getCourseID(), c.getInstructorID(), c.getDescription(), c.getLessons()});
 
         }
     }
@@ -60,17 +53,21 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         enroll = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Course Title", "CourseID", "Description"
+                "Course Title", "CourseID", "InstructorID", "Description", "Lessons"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -82,10 +79,34 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Go Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addButton.setText("Add Course");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setText("Delete Course");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        editButton.setText("Edit Courses");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Available Courses");
+
+        backButton.setText("Go Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -93,68 +114,162 @@ public class ViewCoursesAvailable extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(170, 170, 170))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(enroll))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(addButton)
+                        .addGap(72, 72, 72)
+                        .addComponent(editButton))
+                    .addComponent(backButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(deleteButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(enroll)))
+                .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enroll)
-                    .addComponent(jButton1))
-                .addContainerGap())
+                    .addComponent(addButton)
+                    .addComponent(editButton)
+                    .addComponent(deleteButton))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backButton)
+                    .addComponent(enroll))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void enrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollActionPerformed
-        try {
-            // TODO add your handling code here:
-            
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            
-            // Get the selected row index
-            int selectedRow = jTable1.getSelectedRow();
-            
-            if (selectedRow == -1) {
-                // No row selected
-                JOptionPane.showMessageDialog(this, "Please select a course to enroll into.");
-                return;
-            }
-            
-            int cID = (int) jTable1.getValueAt(selectedRow, 1);
-            if(sm.enroll(cID) == false)
-                JOptionPane.showMessageDialog(this,"You have already enrolled in this course, cant enroll again");
-            else{
-                JOptionPane.showMessageDialog(this,"You have enrolled successfully");
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(ViewCoursesAvailable.class.getName()).log(Level.SEVERE, null, ex);
+        // TODO add your handling code here:
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+// Get the selected row index
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            // No row selected
+            JOptionPane.showMessageDialog(this, "Please select a course");
+            return;
         }
+
+        int cID = (int) jTable1.getValueAt(selectedRow, 1);
+        StudentManager sm = new StudentManager();
+        sm.enroll(cID);
     }//GEN-LAST:event_enrollActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-          JFrame frame = (JFrame) getWindowAncestor(this);
-          frame.setContentPane(new StudentDashboardFrame(s).getContentPane());
-        frame.revalidate();
-        frame.repaint(); // reopen dashboard without creating a new one
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
 
-   
-    }//GEN-LAST:event_jButton1ActionPerformed
+        AddCoursePanel m = new AddCoursePanel();
+        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+        if (window instanceof javax.swing.JFrame frame) {
+            frame.setContentPane(m);
+            frame.revalidate();
+            frame.repaint();
+        }
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            // No row selected
+            JOptionPane.showMessageDialog(this, "Please select a course");
+            return;
+        } else {
+            try {
+               
+                ArrayList<Course> courses = JsonDatabaseManager.loadCourses();
+                EditCoursePanel editPanel = new EditCoursePanel();
+                editPanel.loadCourse(courses.get(selectedRow));
+                java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+                if (window instanceof javax.swing.JFrame frame) {
+                    frame.setContentPane(editPanel);
+                    frame.revalidate();
+                    frame.repaint();
+                }
+}            catch (IOException ex) {
+                Logger.getLogger(ViewCoursesAvailable.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            }
+        
+
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            // No row selected
+            JOptionPane.showMessageDialog(this, "Please select a course");
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete this Course",
+                "Confirm Deletion",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Remove the row from the table
+            ArrayList<Course> courses;
+            try {
+                courses = JsonDatabaseManager.loadCourses();
+                Course c = courses.get(selectedRow);
+                model.removeRow(selectedRow);
+                Instructor.deleteCourse(c);
+                
+                loadTable();
+            } catch (IOException ex) {
+                Logger.getLogger(ViewCoursesAvailable.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JOptionPane.showMessageDialog(this, "Course deleted successfully.");
+
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        JFrame frame = (JFrame) getWindowAncestor(this);
+       frame.setContentPane(new InstructorDashboardFrame().getContentPane());
+       frame.revalidate();
+       frame.repaint();
+    }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
     private javax.swing.JButton enroll;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

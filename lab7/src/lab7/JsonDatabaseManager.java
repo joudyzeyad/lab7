@@ -228,5 +228,17 @@ public class JsonDatabaseManager {
          }
          return maxId + 1;
     }
+    public static boolean courseIdExists(int id) throws IOException {
+    ArrayList<Course> courses = loadCourses();
+    if (courses == null) return false;
+
+    for (Course c : courses) {
+        if (c.getCourseID() == id) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 }

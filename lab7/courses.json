@@ -32,19 +32,7 @@
     ],
     "title": "NEW TEST COURSE TITLE",
     "courseId": 99999,
-    "instructorID": 919191,
-    "lessons": [
-      {
-        "lessonId": 1,
-        "title": "Intro",
-        "content": "Welcome"
-      },
-      {
-        "lessonId": 2,
-        "title": "OOP concepts",
-        "content": "abstraction"
-      }
-    ]
+    "instructorID": 919191
   },
   {
     "description": "This course has no students and no lessons yet.",
@@ -60,5 +48,17 @@
     "title": "Empty Course",
     "courseId": 500,
     "instructorID": 2
+  },
+  {
+    "description": "json files",
+    "title": "Database",
+    "courseId": 9811,
+    "instructorID": 9619
+  },
+  {
+    "description": "Stability",
+    "title": "signals",
+    "courseId": 9822,
+    "instructorID": 1234
   }
 ]
