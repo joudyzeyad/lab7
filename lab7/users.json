@@ -60,7 +60,7 @@
   },
   {
     "role": "student",
-    "enrolledCourses": [],
+    "enrolledCourses": [500],
     "progress": [],
     "userId": 9445,
     "email": "amr8856@gmail.com",

@@ -48,6 +48,15 @@
   },
   {
     "description": "This course has no students and no lessons yet.",
+    "students": [{
+      "role": "student",
+      "enrolledCourses": [500],
+      "progress": [],
+      "userId": 9445,
+      "email": "amr8856@gmail.com",
+      "passwordHash": "5b1feab3b3db889811317184f5275706f10d3f728ad357041bc91e6e55d0eb91",
+      "username": "Amr "
+    }],
     "title": "Empty Course",
     "courseId": 500,
     "instructorID": 2
