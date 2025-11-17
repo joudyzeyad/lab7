@@ -6,6 +6,12 @@ package lab7;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import lab7.Course;
+import lab7.CourseProgress;
+import lab7.JsonDatabaseManager;
+import lab7.Lesson;
+import lab7.Student;
+import lab7.User;
 
 /**
  *
@@ -54,14 +60,12 @@ public class StudentManager {
     }
 
     public ArrayList<Lesson> lessonList(int cID) throws IOException {
-        ArrayList<Course> x = viewEnrolled();
-        ArrayList<Lesson> l = new ArrayList();
-        for (int i = 0; i < x.size(); i++) {
-            if (x.get(i).getCourseID() == cID) {
-                l = x.get(i).getLessons();
+        for (int i = 0 ; i < viewEnrolled().size() ; i++) {
+            if (viewEnrolled().get(i).getCourseID() == cID) {
+                return viewEnrolled().get(i).getLessons();
             }
         }
-        return l;
+        return new ArrayList<>();
     }
 
     public void lessonComplete(int lessonId, int courseId) throws IOException {
@@ -80,19 +84,45 @@ public class StudentManager {
             progressList.add(cp);
         }
 
-        int updated = cp.getCompletedLessons() + 1;
-        cp.setCompletedLessons(updated);
+        cp.setCompletedLessons(cp.getCompletedLessons() + 1);
+        updateStudentInJson();
 
     }
-    public void editStudentList(Student s) throws IOException{
-          ArrayList<User> temp = JsonDatabaseManager.loadUsers();
-          int i;
-          for(i=0;i<temp.size();++i){
-              if(temp.get(i).getUserId() == s.getUserId()){
-                  temp.add(i, s);
-                  break;
-              }
-          }
-          JsonDatabaseManager.saveUser(temp);
+    
+    private void updateStudentInJson() throws IOException {
+        ArrayList<User> users = JsonDatabaseManager.loadUsers();
+        
+        for (int i = 0 ; i < users.size() ; i++) {
+            if (users.get(i).getUserId() == s.getUserId()) {
+                users.set(i, s);
+                break;
+            }
+        }
+        JsonDatabaseManager.saveUser(users);
+    }
+    
+    private void updateCourseEnrollment(int courseId) throws IOException {
+        ArrayList<Course> courses = JsonDatabaseManager.loadCourses();
+        
+        for (int i = 0 ; i < courses.size() ; i++) {
+            if (courses.get(i).getCourseID()== courseId) {
+                courses.get(i).addStudent(s);
+                break;
+            }
+        }
+        JsonDatabaseManager.saveCourse(courses);
+    }
+    
+    public void editStudentList(Student s) throws IOException { 
+        ArrayList<User> temp = JsonDatabaseManager.loadUsers(); 
+        int i; 
+        for(i=0;i<temp.size();++i){ 
+            if(temp.get(i).getUserId() == s.getUserId()){ 
+                temp.add(i, s); break; 
+            } 
+        } 
+        JsonDatabaseManager.saveUser(temp); 
     }
 }
+
+
