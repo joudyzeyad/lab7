@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import lab7.AuthenticationManager;
+import lab7.Student;
 import lab7.User;
 
 /**
@@ -170,7 +171,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         
             if (user.getRole().equals("student")) {
-                new StudentDashboardFrame().setVisible(true);
+                new StudentDashboardFrame((Student)user).setVisible(true);
             }
             else {
                 new InstructorDashboardFrame().setVisible(true);

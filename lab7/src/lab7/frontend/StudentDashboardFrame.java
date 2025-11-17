@@ -7,19 +7,23 @@ package lab7.frontend;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lab7.Student;
+import lab7.StudentManager;
 
 /**
  *
  * @author farida helal
  */
 public class StudentDashboardFrame extends javax.swing.JFrame {
-
+      private Student s;
+      private StudentManager sm;
     /**
      * Creates new form StudentDashboard
      */
-    public StudentDashboardFrame() {
+    public StudentDashboardFrame(Student s) {
         initComponents();
-
+        this.s=s;
+        this.sm= new StudentManager(s);
     }
 
     /**
@@ -102,21 +106,25 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     private void viewCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCoursesActionPerformed
         try {
             // TODO add your handling code here:
-            new ViewCoursesAvailable().setVisible(true);
+            ViewCoursesAvailable x =new ViewCoursesAvailable(sm,s);
+                    x.setVisible(true);
+                    this.dispose();
         } catch (IOException ex) {
             Logger.getLogger(StudentDashboardFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
+        
     }//GEN-LAST:event_viewCoursesActionPerformed
 
     private void viewEnrolledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewEnrolledActionPerformed
         try {
             // TODO add your handling code here:
-            new ViewEnrolledCourses().setVisible(true);
+            ViewEnrolledCourses v = new ViewEnrolledCourses(sm,s);
+                    v.setVisible(true);
+                    this.dispose();
         } catch (IOException ex) {
             Logger.getLogger(StudentDashboardFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
+        
     }//GEN-LAST:event_viewEnrolledActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
@@ -135,38 +143,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentDashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentDashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentDashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentDashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StudentDashboardFrame().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Logout;

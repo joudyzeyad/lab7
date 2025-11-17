@@ -13,8 +13,13 @@ import java.util.ArrayList;
  */
 public class StudentManager {
 
-    Student s;
-    Lesson l;
+    private Student s;
+    
+    public StudentManager(Student s)
+    {
+        this.s=s;
+    
+    }
 
     public ArrayList<Course> availableCourses() throws IOException {
         return JsonDatabaseManager.loadCourses();
@@ -41,7 +46,7 @@ public class StudentManager {
     }
 
     public ArrayList<Lesson> lessonList(int cID) throws IOException {
-        ArrayList<Course> x = s.viewEnrolled();
+        ArrayList<Course> x = viewEnrolled();
         ArrayList<Lesson> l = new ArrayList();
         for (int i = 0; i < x.size(); i++) {
             if (x.get(i).getCourseID() == cID) {
